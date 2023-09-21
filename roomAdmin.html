@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #FFFFFF;
+            text-align: left;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #header {
+            color: #3498db; /* Changed header text color */
+            text-align: left;
+            padding: 5px;
+            width: 100%;
+            height: 24.4px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        #header a {
+            text-decoration: none;
+            color: #3498db; /* Explicitly set link color to blue */
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .room-list {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .room-dropdown {
+            width: 200px;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        #selected-room {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #room-type {
+            font-size: 17px;
+            color: gray;
+            margin-top: 5px;
+        }
+
+        #guest-info {
+            font-size: 14px;
+            color: gray;
+            margin-top: 5px;
+        }
+        .room-type-dropdown {
+            width: 200px;
+            font-size: 18px;
+            padding: 10px;
+            margin-left: 10px;
+        }
+
+        .return-button {
+            width: 90px;
+            height: 20px;
+            padding: 5px;
+            padding-left: 17px;
+            background-color: rgb(95, 159, 255);
+            color: white !important;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px; /* Move the button to the left */
+            top: 10px; /* Adjust top position */
+        }
+
+        /* Added default style for the dropdown */
+        .room-dropdown option[value="default"] {
+            display: none;
+        }
+
+        /* Added style for room features */
+        #room-features {
+            font-size: 18px;
+            margin-top: 10px;
+            border-top: 1px solid #ccc; /* Add a top border to separate sections */
+            padding-top: 10px; /* Add some spacing above the border */
+        }
+
+        #room-status-label {
+            font-size: 18px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        #room-status {
+            font-size: 18px;
+            padding: 10px;
+            margin-left: 10pxpx;
+        }
+
+        /* Additional Styles for Admin Features */
+        .admin-panel {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .description-textarea {
+            width: 100%;
+            height: 80px;
+            resize: none;
+        }
+
+        .out-of-order-button {
+            background-color: #e74c3c;
+            color: white;
+            font-weight: bold;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .new-room-button {
+          background-color: #3c7ee7;
+          color: white;
+          font-weight: bold;
+          padding: 5px 15px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          margin-top: 10px;
+      }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <a href="#" class="return-button">RETURN</a>
+    </div>
+    <h1>Room Managment (ADMIN)</h1> <!-- Updated the header -->
+    <div class="room-list">
+        <select class="room-dropdown" id="room-dropdown">
+            <option value="default" disabled selected>SELECT ROOM</option>
+            <option value="203">203</option>
+            <option value="205">205</option>
+            <option value="305">305</option>
+            <option value="209">209</option>
+        </select>
+        <span class="availability-light"></span> <!-- Move the light here -->
+        <label for="room-status">Room Status:</label>
+        <select class="room-dropdown" id="room-status">
+            <option value="Set Status">Set Status</option>
+            <option value="Occupied">Occupied</option>
+            <option value="Available">Available</option>
+            <option value="Maintenance Req">Maintenance Req</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Cleaning Req">Cleaning Req</option>
+            <option value="Maintaining">Maintaining</option>
+        </select>
+    </div>
+
+    <div id="selected-room">Room Selected: 305</div>
+    <div id="room-type">Room Type: Standard</div>
+    <div id="guest-info">
+        <span>Guest: John Doe</span>
+        <span>(ID: 12345)</span>
+    </div>
+
+    <!-- Room Features Section (Sample data, you need server-side scripting for database retrieval) -->
+    <div id="room-features">
+        <strong>Room Features/Details:</strong><br>
+        <ul>
+            <li>Floor:</li>
+            <li>Feature 2: Another Sample Feature</li>
+            <!-- You would populate this list dynamically with data from your database -->
+        </ul>
+    </div>
+
+    <!-- Admin Panel Section -->
+    <div class="admin-panel">
+        <h2>Admin Functions</h2>
+        <label for="room-description">Modify Room Description:</label>
+        <textarea class="description-textarea" id="room-description"></textarea>
+        <label for="room-status">Room Type:</label>
+        <select class="room-type-dropdown" id="room-type-dropdown">
+            <option value="Standard">Standard</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Suite">Suite</option>
+        </select>
+        <br>
+        <button class="out-of-order-button" id="out-of-order-button">Mark Room Out of Order</button>
+        <button class="new-room-button" id="new-room-button"> + Create New Room</button>
+        <br>
+        <br>
+        <label for="room-description">To put a Room back in service, select a new status</label>
+
+    </div>
+
+    <script>
+        const roomDropdown = document.getElementById('room-dropdown');
+        const selectedRoom = document.getElementById('selected-room');
+        const availabilityLight = document.querySelector('.availability-light');
+        const roomFeatures = document.getElementById('room-features');
+        const floorNumber = document.querySelector('#room-features ul li:first-child'); // Select the first <li> element
+        const roomDescriptionTextarea = document.getElementById('room-description');
+        const outOfOrderButton = document.getElementById('out-of-order-button');
+    
+        roomDropdown.addEventListener('change', () => {
+            const selectedValue = roomDropdown.value;
+            selectedRoom.textContent = `Room Selected: ${selectedValue}`;
+            
+            // Extract the first character as the floor number
+            const floor = selectedValue.charAt(0);
+            floorNumber.textContent = `Floor: ${floor}`;
+    
+            // Toggle the availability light based on the selected room
+            if (selectedValue === 'default') {
+                availabilityLight.style.backgroundColor = 'white'; // Set it to white
+            } else {
+                availabilityLight.style.backgroundColor = 'green';
+            }
+    
+            // Here you would make an AJAX request to your server to retrieve room features
+            // and then populate the roomFeatures div with the retrieved data.
+            // This requires server-side scripting like Django or Express.js.
+        });
+
+        outOfOrderButton.addEventListener('click', () => {
+            // Here you can implement the functionality to mark the room as out of order
+            // Send this information to the server via AJAX for database update.
+            alert('Room marked as out of order.');
+        });
+    </script>
+</body>
+</html>
